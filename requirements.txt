@@ -1,0 +1,25 @@
+# ── Dependencias Python (Odroid-C2 / ARM64) ──────────────────
+# Instalar con: pip install -r requirements.txt
+
+# Comunicación
+pyserial>=3.5
+pyzmq>=25.0
+
+# Visión
+opencv-python-headless>=4.8   # headless: sin GUI, más ligero
+ultralytics>=8.0               # YOLOv8n incluido
+
+# IA / LLM
+anthropic>=0.25
+
+# Memoria
+chromadb>=0.4
+sentence-transformers>=2.6     # paraphrase-MiniLM-L3-v2
+
+# Voz (opcional, instalar si se quiere módulo de audio)
+# openai-whisper
+# pyttsx3
+# webrtcvad
+
+# Utilidades
+numpy>=1.24

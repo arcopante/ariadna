@@ -1,0 +1,77 @@
+name: ARIADNA CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Lint Python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar herramientas de lint
+        run: pip install flake8 black
+
+      - name: Comprobar formato con black
+        run: black --check --diff odroid/ tools/
+
+      - name: Lint con flake8
+        run: |
+          flake8 odroid/ tools/ \
+            --max-line-length=100 \
+            --ignore=E501,W503 \
+            --exclude=__pycache__
+
+  verify-arduino:
+    name: Verificar sketch Arduino
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Arduino CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Configurar Arduino CLI y librerías
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr
+          arduino-cli lib install "Makeblock"
+
+      - name: Compilar sketch
+        run: |
+          arduino-cli compile \
+            --fqbn arduino:avr:uno \
+            arduino/robot_controller/robot_controller.ino
+
+  check-env-example:
+    name: Verificar .env.example
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar que .env no está en el repo
+        run: |
+          if [ -f ".env" ]; then
+            echo "ERROR: .env no debe subirse al repositorio"
+            exit 1
+          fi
+          echo ".env ausente del repo — OK"
+
+      - name: Comprobar que .env.example existe
+        run: |
+          if [ ! -f ".env.example" ]; then
+            echo "ERROR: falta .env.example"
+            exit 1
+          fi
+          echo ".env.example presente — OK"

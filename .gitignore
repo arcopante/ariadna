@@ -1,0 +1,71 @@
+# ── Python ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.whl
+pip-wheel-metadata/
+.installed.cfg
+
+# ── Entornos virtuales ────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+
+# ── Datos y modelos (pueden ser muy grandes) ──────────────────
+data/
+*.db
+*.sqlite
+*.sqlite3
+chroma/
+*.pt          # Pesos de modelos PyTorch (YOLOv8, etc.)
+*.onnx
+*.tflite
+models/
+
+# ── Credenciales y configuración local ───────────────────────
+.env
+.env.local
+config.local.py
+secrets.py
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── IDEs ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Arduino IDE ───────────────────────────────────────────────
+*.elf
+*.hex
+*.bin
+build/
+
+# ── Jupyter (por si acaso se usa para experimentos) ───────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Archivos comprimidos generados ───────────────────────────
+*.zip
+*.tar.gz
